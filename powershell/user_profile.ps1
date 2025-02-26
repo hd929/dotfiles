@@ -13,7 +13,6 @@ oh-my-posh --init --shell pwsh --config $PROMPT_CONFIG | Invoke-Expression
 # oh-my-posh init pwsh --config "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/$PROMPT.omp.json" | Invoke-Expression
 
 Import-Module -Name git-aliases -DisableNameChecking
-Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
 
 # Icon
 Import-Module -Name Terminal-Icons
