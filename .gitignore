@@ -20,3 +20,5 @@ scripts/.local/bin/moggsplit
 scripts/.local/bin/mutagen-inspect
 scripts/.local/bin/mutagen-pony
 scripts/.local/bin/yt-dlp
+zsh/.config/zsh/.zcalc_history
+zsh/.config/zsh/.zcompdump.arc.1114

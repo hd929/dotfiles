@@ -4,7 +4,7 @@ HISTFILE="$XDG_DATA_HOME"/zsh/history
 HISTSIZE=1000000
 SAVEHIST=1000000
 
-export PATH=$HOME/.local/bin:$HOME/.config/composer/vendor/bin:/usr/local/bin:$HOME/.npm-global/bin:$PATH
+export PATH=$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.config/composer/vendor/bin:/usr/local/bin:$HOME/.npm-global/bin:$PATH
 export PATH="$HOME/.config/emacs/bin/:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
