@@ -13,6 +13,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 eval "$(zoxide init zsh)"
 export PATH="/home/akatsuki/.local/share/fnm:$PATH"
 eval "`fnm env`"
+eval $(thefuck --alias)
 
 # bun completions
 [ -s "/home/akatsuki/.bun/_bun" ] && source "/home/akatsuki/.bun/_bun"
