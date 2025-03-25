@@ -16,5 +16,7 @@ function link
   Write-Host "Symbolic link created at: $linkPath"
 }
 
+mkdir $HOME/Documents/PowerShell
+link -targetPath $HOME/dotfiles/powershell/DefaultEnv.ps1 -linkPath $HOME/Documents/PowerShell/Microsoft.PowerShell_profile.ps1
 link -targetPath $HOME/dotfiles/powershell -linkPath $HOME/.config/powershell
 link -targetPath $HOME/dotfiles/lazygit -linkPath $HOME/.config/lazygit
