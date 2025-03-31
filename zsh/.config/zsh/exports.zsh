@@ -8,6 +8,7 @@ export PATH=$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.config/composer/vendor/bin:
 export PATH="$HOME/.config/emacs/bin/:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+export VISUAL=nvim
 
 # eval "`pip completion --zsh`"
 eval "$(zoxide init zsh)"
