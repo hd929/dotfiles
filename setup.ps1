@@ -17,6 +17,6 @@ function link
 }
 
 mkdir $HOME/Documents/PowerShell
-link -targetPath $HOME/dotfiles/powershell/DefaultEnv.ps1 -linkPath $HOME/Documents/PowerShell/Microsoft.PowerShell_profile.ps1
-link -targetPath $HOME/dotfiles/powershell -linkPath $HOME/.config/powershell
-link -targetPath $HOME/dotfiles/lazygit -linkPath $HOME/.config/lazygit
+link -targetPath D:/dotfiles/powershell/DefaultEnv.ps1 -linkPath $HOME/Documents/PowerShell/Microsoft.PowerShell_profile.ps1
+link -targetPath D:/dotfiles/powershell -linkPath $HOME/.config/powershell
+link -targetPath D:/dotfiles/lazygit -linkPath $HOME/.config/lazygit
