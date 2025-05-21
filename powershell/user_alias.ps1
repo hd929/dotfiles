@@ -37,3 +37,9 @@ New-Alias yi Init-YarnPackage
 New-Alias yin Install-YarnPackage
 New-Alias yrm Remove-YarnPackage
 New-Alias yst Start-YarnPackage
+
+function Sync-Workspace {
+    robocopy "$HOME\workspace" "Z:\workspace" /MIR /Z /NP /R:2 /W:5 /LOG:"$HOME\sync_workspace.log"
+}
+Set-Alias syncws Sync-Workspace
+
