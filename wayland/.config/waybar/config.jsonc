@@ -1,6 +1,6 @@
 {
   "layer": "top",
-  "position": "bottom",
+  "position": "top",
   "mod": "dock",
   "height": 0,
   "modules-left": [
