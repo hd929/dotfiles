@@ -50,6 +50,7 @@ tooltip {
   border-radius: 10px;
 }
 
+#custom-toggle-laptop-keyboard,
 #custom-language,
 #custom-updates,
 #custom-caffeine,
@@ -125,9 +126,14 @@ tooltip {
 
 #pulseaudio.microphone {
   color: #cba6f7;
+}
+
+#custom-toggle-laptop-keyboard {
+  color: #cba6f7;
   border-radius: 0px 10px 10px 0px;
   border-left: 0px;
-  margin-right: 5px;
+  margin-right: 10px;
+  padding-right: 20px;
 }
 
 #battery {

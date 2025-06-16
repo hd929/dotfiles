@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Tìm ID của bàn phím laptop
+laptop_keyboard="/dev/input/by-path/platform-i8042-serio-0-event-kbd"
+
+if [[ "$ACTION" == "add" ]]; then
+    # Phát hiện bàn phím ngoài được cắm
+    if libinput list-devices | grep -i "USB Keyboard" > /dev/null; then
+        # Tắt bàn phím laptop
+        sudo libinput debug-events --disable "$laptop_keyboard"
+    fi
+elif [[ "$ACTION" == "remove" ]]; then
+    # Phát hiện bàn phím ngoài được tháo
+    sudo libinput debug-events --enable "$laptop_keyboard"
+fi
+

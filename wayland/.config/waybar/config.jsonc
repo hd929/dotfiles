@@ -15,7 +15,8 @@
     "battery",
     "custom/cliphist",
     "pulseaudio",
-    "pulseaudio#microphone"
+    "pulseaudio#microphone",
+    "custom/toggle-laptop-keyboard"
   ],
   "hyprland/window": {
     "format": "{}"
@@ -109,7 +110,7 @@
       " ",
       " "
     ],
-    "format-time": "{H}h {M}m",
+    "format-time": "{H}h {M}m"
   },
   "custom/cliphist": {
     "format": "",
@@ -118,4 +119,9 @@
     "on-click-middle": "sleep 0.1 && ~/.config/hypr/scripts/cliphist.sh w",
     "tooltip-format": "Clipboard Manager"
   },
+  "custom/toggle-laptop-keyboard": {
+    "format": "",
+    "on-click": "~/.config/hypr/scripts/toggle-lapkeyboard.sh",
+    "tooltip-format": "Toggle Laptop Keyboard"
+  }
 }
