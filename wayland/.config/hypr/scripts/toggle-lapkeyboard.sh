@@ -1,19 +1,21 @@
 #!/bin/bash
-#~/.config/waybar/toggle-laptop-keyboard.sh &
-#  _____                 _             
-# |_   _|__   __ _  __ _| | ___  
-#   | |/ _ \ / _` |/ _` | |/ _ \ 
-#   | | (_) | (_| | (_| | |  __/    
-#   |_|\___/ \__, |\__, |_|\___|    
-#            |___/ |___/                          
-#
+# Improved toggle script for laptop keyboard
+CACHE_FILE="/home/ajitana/.config/waybar/laptop-keyboard-disabled"
 
-CACHE_FILE="/home/ajitana/.cache/laptop-keyboard-disabled"
+# Function to check current device state
+is_keyboard_disabled() {
+    hyprctl devices | grep -q "at-translated-set-2-keyboard.*enabled: 0"
+}
 
-if [ -f "$CACHE_FILE" ] ;then
-    rm "$CACHE_FILE"
+if is_keyboard_disabled; then
+    # Enable keyboard
+    rm -f "$CACHE_FILE"
+    notify-send -u normal "Enabling keyboard laptop"
     sh -c "hyprctl keyword 'device[at-translated-set-2-keyboard]:enabled' 1"
 else
+    # Disable keyboard
     touch "$CACHE_FILE"
+    notify-send -u normal "Disabling keyboard laptop"
     sh -c "hyprctl keyword 'device[at-translated-set-2-keyboard]:enabled' 0"
 fi
+
