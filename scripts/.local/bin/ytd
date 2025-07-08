@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Thư mục lưu nhạc
+DEST="$HOME/Music"
+
+# Kiểm tra đối số
+if [ -z "$1" ]; then
+    echo "Usage: $0 <YouTube_URL>"
+    exit 1
+fi
+
+# Tải nhạc
+yt-dlp \
+  -x --audio-format mp3 --progress \
+  -o "$DEST/%(title)s.%(ext)s" \
+  "$1"
+
