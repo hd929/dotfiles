@@ -7,6 +7,7 @@ alias nvimrc='nvim ~/.config/nvim/'
 alias win="sudo efibootmgr --bootnext 0000 && reboot"
 alias dl="aria2c -x 12 -s 12"
 alias pmcl="sudo pacman -R \$(pacman -Qdtq)"
+alias ejectusb='udisksctl unmount -b /dev/sdb1 && udisksctl power-off -b /dev/sdb'
 
 alias nv="nvim"
 alias nvd="neovide"

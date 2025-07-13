@@ -32,4 +32,3 @@ export ZDOTDIR=$HOME/.config/zsh
 
 # fnm
 export PATH=/home/ajitana/.fnm:$PATH
-~/toggle-touchpad.sh &

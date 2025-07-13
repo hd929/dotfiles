@@ -1,0 +1,33 @@
+#!/bin/bash
+
+DEVNAME="$1"
+MOUNT_BASE="/run/media/$USER"
+TARGET="$HOME/Box"
+
+# Mount bằng udisksctl (tự xử lý file system)
+MOUNT_OUTPUT=$(udisksctl mount -b "$DEVNAME" 2>&1)
+
+# Trích xuất thư mục thực sự
+MOUNTPOINT=$(echo "$MOUNT_OUTPUT" | grep 'Mounted' | awk '{print $4}' | sed 's/\.//')
+
+if [ -z "$MOUNTPOINT" ]; then
+    notify-send "Mount failed" "$MOUNT_OUTPUT"
+    logger "auto-mount: Failed to mount $DEVNAME"
+    exit 1
+fi
+
+# Tạo thư mục ~/Box nếu chưa có
+mkdir -p "$TARGET"
+
+# Nếu ~/Box đang dùng → unmount
+mountpoint -q "$TARGET" && fusermount -u "$TARGET" 2>/dev/null || umount "$TARGET" 2>/dev/null
+
+# Bind mount từ /run/media/... → ~/Box
+sudo mount --bind "$MOUNTPOINT" "$TARGET"
+
+# Đồng bộ metadata để tránh lỗi khi tháo
+sync
+
+notify-send "USB Mounted" "$DEVNAME → ~/Box"
+logger "auto-mount: Mounted $DEVNAME to $TARGET"
+

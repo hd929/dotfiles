@@ -1,0 +1,45 @@
+#!/bin/bash
+
+TARGET="$HOME/Box"
+
+# Gỡ bind mount ~/Box nếu có
+if mount | grep -q "on $TARGET "; then
+    sudo umount "$TARGET"
+fi
+
+# Xóa symlink ~/Box nếu còn
+[ -e "$TARGET" ] && rm -rf "$TARGET"
+
+# Tìm mount point thật sự
+REAL_MOUNT=$(find /run/media/"$USER" -mindepth 1 -maxdepth 1 -type d | head -n 1)
+[ -z "$REAL_MOUNT" ] && {
+    notify-send "⚠️ USB Remove" "Không tìm thấy mountpoint trong /run/media"
+    exit 1
+}
+
+# Lấy thiết bị phân vùng (vd /dev/sdb1)
+PART_DEV=$(findmnt -n "$REAL_MOUNT" -o SOURCE 2>/dev/null)
+[ -z "$PART_DEV" ] && {
+    notify-send "⚠️ USB Remove" "Không tìm thấy thiết bị phân vùng từ $REAL_MOUNT"
+    exit 1
+}
+
+# Tìm thiết bị gốc (vd sdb) và giao tiếp (usb/sata)
+DEVNODE=$(lsblk -no PKNAME "$PART_DEV" 2>/dev/null)
+TRANSPORT=$(lsblk -no TRAN "/dev/$DEVNODE" 2>/dev/null)
+
+# Kiểm tra tên thiết bị có từ sdb trở đi không
+if [[ "$DEVNODE" =~ ^sd[b-z]$ || "$TRANSPORT" == "usb" ]]; then
+    udisksctl unmount -b "$PART_DEV"
+    if timeout 3s udisksctl power-off -b "/dev/$DEVNODE"; then
+        notify-send "✅ USB Removed" "✓ /dev/$DEVNODE đã được tháo an toàn"
+        logger "eject-box: USB /dev/$DEVNODE safely removed"
+    else
+        notify-send "⚠️ USB Remove" "Đã umount nhưng không thể power-off /dev/$DEVNODE"
+        logger "eject-box: Timeout khi power-off /dev/$DEVNODE"
+    fi
+else
+    notify-send "❌ Eject blocked" "/dev/$DEVNODE không phải USB hoặc là ổ hệ thống"
+    logger "eject-box: Bỏ qua /dev/$DEVNODE vì không hợp lệ"
+    exit 1
+fi

@@ -1,0 +1,33 @@
+#!/bin/bash
+set -e
+
+TARGET="$HOME/Box"
+BACKUP_DIR="$TARGET/Backup"
+MIN_FREE_MB=1024  # Yêu cầu ít nhất 1GB trống
+
+# Kiểm tra ~/Box đã mount chưa
+if ! mountpoint -q "$TARGET"; then
+    notify-send "Backup Failed" "$TARGET is not mounted"
+    logger "auto-backup: $TARGET is not mounted"
+    exit 1
+fi
+
+# Kiểm tra dung lượng trống
+AVAIL=$(df -Pm "$TARGET" | awk 'NR==2 {print $4}')
+if (( AVAIL < MIN_FREE_MB )); then
+    notify-send "Backup Skipped" "Not enough space on USB ($AVAIL MB left)"
+    logger "auto-backup: Not enough space ($AVAIL MB left)"
+    exit 0
+fi
+
+mkdir -p "$BACKUP_DIR"
+
+# Backup workspace
+rsync -a --delete "$HOME/workspace/" "$BACKUP_DIR/workspace/"
+
+# Backup Music
+rsync -a --delete "$HOME/Music/" "$BACKUP_DIR/Music/"
+
+notify-send "Backup Completed" "workspace and Music backed up"
+logger "auto-backup: Backup completed to $BACKUP_DIR"
+

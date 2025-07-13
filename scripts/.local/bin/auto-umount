@@ -1,0 +1,12 @@
+#!/bin/bash
+
+TARGET="$HOME/Box"
+
+if mountpoint -q "$TARGET"; then
+    sudo /usr/bin/umount "$TARGET"
+    notify-send "USB Removed" "Unmounted $TARGET"
+    logger "auto-umount: $TARGET unmounted"
+else
+    logger "auto-umount: $TARGET is not mounted"
+fi
+
